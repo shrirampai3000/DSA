@@ -7,7 +7,6 @@ class Solution {
 
         while (i < rows && j >= 0) {
             int element = matrix[i][j];
-            
             if (element == target) {
                 return true;
             } else if (element > target) {
