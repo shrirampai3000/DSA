@@ -2,7 +2,7 @@ import java.util.Stack;
 
 class StockSpanner {
 
-    // Stack stores {price, span}
+
     private Stack<int[]> stack;
 
     public StockSpanner() {
