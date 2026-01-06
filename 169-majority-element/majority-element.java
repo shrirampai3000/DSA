@@ -1,20 +1,25 @@
+import java.util.Arrays;
+
 class Solution {
     public int majorityElement(int[] nums) {
-        int n=nums.length;
-        
-        for( int val:nums){
-            int freq=0;
-            
-            for( int d:nums){
-                if(d==val){
-                    freq++;
-                }
+        Arrays.sort(nums);
+
+        int n = nums.length;
+        int freq = 1;
+        int ans = nums[0];
+
+        for (int i = 1; i < n; i++) {
+            if (nums[i] == nums[i - 1]) {
+                freq++;
+            } else {
+                freq = 1;
+                ans = nums[i];
             }
-        
-            if(freq> (n/2)){
-                return val;
+
+            if (freq > n / 2) {
+                return ans;
             }
         }
-        return -1;
+        return ans;
     }
 }
