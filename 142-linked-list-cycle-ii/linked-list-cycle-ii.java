@@ -24,7 +24,7 @@ public class Solution {
                     slow = slow.next;
                     fast = fast.next;
                 }
-                return fast; 
+                return slow; 
             }
         }
         return null; 
