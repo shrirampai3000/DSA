@@ -1,40 +1,55 @@
 class Solution {
+
     public ListNode reverseEvenLengthGroups(ListNode head) {
-        List<Integer> vals = new ArrayList<>();
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
 
-        for (ListNode curr = head; curr != null; curr = curr.next) {
-            vals.add(curr.val);
-        }
+        ListNode prevTail = dummy;
+        ListNode curr = head;
 
-        int start = 0;
-        int group = 1;
-        int n = vals.size();
+        int groupSize = 1;
 
-        while (start < n) {
-            int end = Math.min(start + group, n);
-            int len = end - start;
+        while (curr != null) {
 
-            if (len % 2 == 0) {
-                int l = start, r = end - 1;
-                while (l < r) {
-                    int temp = vals.get(l);
-                    vals.set(l, vals.get(r));
-                    vals.set(r, temp);
-                    l++;
-                    r--;
-                }
+            int len = 0;
+            ListNode temp = curr;
+            ListNode tail = null;
+
+            while (temp != null && len < groupSize) {
+                tail = temp;
+                temp = temp.next;
+                len++;
             }
 
-            start = end;
-            group++;
+            if (len % 2 == 0) {
+
+                ListNode nextGroupHead = temp;
+                ListNode groupHead = curr;
+
+                
+                ListNode prev = nextGroupHead;
+                ListNode node = curr;
+
+                for (int i = 0; i < len; i++) {
+                    ListNode next = node.next;
+                    node.next = prev;
+                    prev = node;
+                    node = next;
+                }
+
+                prevTail.next = prev; 
+                prevTail = groupHead; 
+                curr = nextGroupHead;
+
+            } else {
+
+                prevTail = tail;
+                curr = temp;
+            }
+
+            groupSize++;
         }
 
-        ListNode curr = head;
-        for (int val : vals) {
-            curr.val = val;
-            curr = curr.next;
-        }
-
-        return head;
+        return dummy.next;
     }
 }
